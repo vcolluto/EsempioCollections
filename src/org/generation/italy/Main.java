@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -99,7 +100,7 @@ public class Main {
 			put("al","Alimenti");
 			put("cs","Casalinghi");
 			put("ig","Igiene personale");
-			put("el","Materiali elettrici");			
+			put("el","Materiali elettrici");				
 		}};
 		
 		System.out.println("\nValori HashMap (ordine delle chiavi non garantito)");
@@ -143,6 +144,27 @@ public class Main {
 		
 		
 		
+		//creo una nuova ArrayList filtrando gli elementi secondo un certo criterio (in questo caso prendo quelli >15)
+		ArrayList<Integer> alFiltrata=(ArrayList<Integer>) al.stream().filter(n -> n>15).collect(Collectors.toList());
+		//oppure:
+		//List<Integer> alFiltrata= al.stream().filter(n -> n>15).collect(Collectors.toList());
+		System.out.println("\n\nValori ArrayList (filtrati per n>15)");
+		for (int n:alFiltrata)
+			System.out.println(n);
+		
+		
+		Set<Integer> setFiltrato =hs.stream().filter(n -> n<30).collect(Collectors.toSet());
+		System.out.println("\n\nValori HashSet (filtrati per n<30)");
+		for (int n:setFiltrato)
+			System.out.println(n);
+	
+		
+		hm.put("ic","Igiene casa");
+		//ricavo un set dalle chiavi dell'hashmap hm, filtrando quelle che iniziano per "i"
+		Set<String> chiaviFiltrate=hm.keySet().stream().filter(k -> k.startsWith("i")).collect(Collectors.toSet());
+		System.out.println("\n\nValori HashMap (filtro per chiavi che iniziano per 'i')");
+		for(String k:chiaviFiltrate)
+			System.out.println("Cod: "+k+ "\t\tDescrizione: "+hm.get(k));
 	}
 
 }
